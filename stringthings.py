@@ -30,7 +30,11 @@ if __name__ == "__main__":
         delim = args[args.index("--delim") + 1]
     else:
         delim = ","
-    
+    if "--drop-duplicates" in args:
+        dd = True
+    else:
+        dd = False    
+        
     if "--synonyms" in args:
         synonyms = True
         syn = args.index("--synonyms") + 1
@@ -50,6 +54,9 @@ if __name__ == "__main__":
     with open(fname2) as f:
         y = f.readline().strip()
         y = re.sub(delim + " *", ",", y).split(",")
+    if dd:
+        x = list(set(x))
+        y = list(set(y))
     
     # Swap out synonyms before the search
     if synonyms:
