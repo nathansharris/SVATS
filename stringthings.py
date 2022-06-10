@@ -19,12 +19,12 @@ if __name__ == "__main__":
         fname1 = args[args.index("--a") + 1]
         print(fname1)
     else:
-        print(f"Missing file a")
+        print(f'Missing file a')
         quit()
     if "--b" in args:
         fname2 = args[args.index("--b") + 1]
     else:
-        print(f"Missing file b")
+        print(f'Missing file b')
         quit()
     if "--delim" in args:
         delim = args[args.index("--delim") + 1]
@@ -91,6 +91,6 @@ if __name__ == "__main__":
     print(f'{len(exacts)} of {file1_num} entries from {fname1} ({round(len(exacts)/file1_num, 3)}) found an exact match in {fname2}\n')
     print(f'Remaining entries and their closest match from {fname2} are \nshown below with their fuzzy scores.')
     print("-"*80)
-    print(dis)
+    
     print("-"*80)
     print(f'Scores are generated using the token_set_ratio methods from package fuzzywuzzy.')
