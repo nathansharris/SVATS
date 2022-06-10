@@ -37,6 +37,10 @@ if __name__ == "__main__":
         exact = True
     else:
         exact = False 
+    if "--output" in args:
+        output = True
+    else:
+        output = False
         
     if "--synonyms" in args:
         synonyms = True
@@ -78,7 +82,7 @@ if __name__ == "__main__":
     
     # Let us find exsiting exact matches first. 
     exacts = [i for i in x if i in y]
-    if exact:
+    if exact and not output:
         print("\n"+"-"*80)
         print(f'Exact matches:')
         for i in exacts:
@@ -105,12 +109,17 @@ if __name__ == "__main__":
         dis.index = [x_map[i] for i in dis.index]
         dis.iloc[:,0] = [y_map[i] for i in dis.iloc[:,0]]
 
-    print(f'\nNames in {fname1} are checked against names in {fname2}')
-    print("-"*80)
-    print(f'{len(exacts)} of {file1_num} entries from {fname1} ({round(len(exacts)/file1_num, 3)}) found an exact match in {fname2}\n')
-    print(f'Remaining entries and their closest match from {fname2} are \nshown below with their fuzzy scores.')
-    print("-"*80)
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-        print(dis)
-    print("-"*80)
-    print(f'Scores are generated using the token_set_ratio methods from package fuzzywuzzy.')
+    if output:
+        if exact:
+            print(','.join(exacts))
+
+    else:
+        print(f'\nNames in {fname1} are checked against names in {fname2}')
+        print("-"*80)
+        print(f'{len(exacts)} of {file1_num} entries from {fname1} ({round(len(exacts)/file1_num, 3)}) found an exact match in {fname2}\n')
+        print(f'Remaining entries and their closest match from {fname2} are \nshown below with their fuzzy scores.')
+        print("-"*80)
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+            print(dis)
+        print("-"*80)
+        print(f'Scores are generated using the token_set_ratio methods from package fuzzywuzzy.')
