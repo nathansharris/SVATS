@@ -59,9 +59,9 @@ if __name__ == "__main__":
         y = [syns[i] if i in syns.keys() else i for i in y]
         
         if len(x) != len(set(x)):
-            print("Duplicate names found in file "+fname1+" after collapsing synonyms")
+            print(f"Duplicate names found in file {fname1} after collapsing synonyms")
         if len(y) != len(set(y)):
-            print("Duplicate names found in file "+fname2+" after collapsing synonyms")
+            print(f"Duplicate names found in file {fname2} after collapsing synonyms")
         # Put line here to check for losing terms to synonym collapse. 
         x_map = {i:j for i,j in zip(x,orig_x)}
         y_map = {i:j for i,j in zip(y,orig_y)}
@@ -91,6 +91,7 @@ if __name__ == "__main__":
     print(f'{len(exacts)} of {file1_num} entries from {fname1} ({round(len(exacts)/file1_num, 3)}) found an exact match in {fname2}\n')
     print(f'Remaining entries and their closest match from {fname2} are \nshown below with their fuzzy scores.')
     print("-"*80)
-    
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+        print(dis)
     print("-"*80)
     print(f'Scores are generated using the token_set_ratio methods from package fuzzywuzzy.')
