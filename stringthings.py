@@ -5,19 +5,18 @@ import sys
 import pandas as pd
 from fuzzywuzzy import fuzz
 
-
+def parse_args():
+    pass
 
 if __name__ == "__main__":
     #fname1 = "file1.txt"
     #fname2 = "file2.txt"
     
     args = sys.argv[1:]
-    print(args)
     #args = ["--synonyms", "syn.txt"]
     
     if "--a" in args:
         fname1 = args[args.index("--a") + 1]
-        print(fname1)
     else:
         print(f'Missing file a')
         quit()
@@ -33,7 +32,11 @@ if __name__ == "__main__":
     if "--drop-duplicates" in args:
         dd = True
     else:
-        dd = False    
+        dd = False   
+    if "--exact" in args:
+        exact = True
+    else:
+        exact = False 
         
     if "--synonyms" in args:
         synonyms = True
@@ -75,8 +78,17 @@ if __name__ == "__main__":
     
     # Let us find exsiting exact matches first. 
     exacts = [i for i in x if i in y]
+    if exact:
+        print("\n"+"-"*80)
+        print(f'Exact matches:')
+        for i in exacts:
+            print(i)
+    
+    
     x = [i for i in x if i not in exacts]
     y = [i for i in y if i not in exacts]
+    
+    
     
     scores = pd.DataFrame(0, index = x, columns = y)
     for(col,throw) in scores.iteritems():
