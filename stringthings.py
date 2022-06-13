@@ -75,7 +75,8 @@ if __name__ == "__main__":
         y = list(set(y))
     
     # Swap out synonyms before the search
-    x,x_map,y,y_map = syntrim(x,y,syns)
+    if syns is not False:
+        x,x_map,y,y_map = syntrim(x,y,syns)
     
     # Let us find exsiting exact matches first. 
     exacts = [i for i in x if i in y]
